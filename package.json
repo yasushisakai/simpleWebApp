@@ -1,0 +1,17 @@
+{
+  "name": "simplewebapp",
+  "version": "1.0.0",
+  "description": "a simple web app",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "tsc && node dist/index.js"
+  },
+  "author": "Yasushi Sakai",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^8.0.46",
+    "axios": "^0.17.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  }
+}
