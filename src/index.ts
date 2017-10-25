@@ -1,6 +1,6 @@
-import * as express from 'express';
 import { json } from 'body-parser';
-import { resolve, join } from 'path';
+import * as express from 'express';
+import { join, resolve } from 'path';
 import { Api } from './api';
 
 const app: express.Application = express();
@@ -14,7 +14,7 @@ app.use(json());
 app.use('/api', Api);
 
 // serving static files
-app.use(express.static(join(rootDir,'/static')));
+app.use(express.static(join(rootDir, '/static')));
 
 // start up server
 app.listen(port, () => {
