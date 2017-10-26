@@ -8,7 +8,7 @@ const pyPath: string = join(filePath, 'scripts/updateImage.py');
 
 export function savePixel(index: number, value: number): void  {
   const timestamp: number = Date.now();
-  const newLine: string = `${timestamp},${index},${value}`;
+  const newLine: string = `${timestamp},${index},${value}\n`;
   appendFile(csvPath, newLine, (error) => {
     if (error) {
       console.error(error);
