@@ -1,3 +1,4 @@
+.DS_Store
 # Logs
 logs
 *.log
@@ -61,4 +62,8 @@ typings/
 dist/
 
 static/current_*.png
+static/current.png
+static/video.mov
 pixel.csv
+
+

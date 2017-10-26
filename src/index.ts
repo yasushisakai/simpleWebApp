@@ -20,8 +20,11 @@ app.get('/image/send/:index/:value', (req: express.Request, res: express.Respons
 // serving static files
 app.use(express.static(join(rootDir, '/static')));
 
+// create the first image
+updateImage();
+
 // start up server
 app.listen(port, () => {
   console.log(`listening to port: ${port}`);
-  // setInterval(updateImage, 1000);
+  setInterval(updateImage, 1000 * 60 * 60);
 });
