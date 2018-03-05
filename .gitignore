@@ -63,7 +63,7 @@ dist/
 
 static/current_*.png
 static/current.png
-static/video.mov
-pixel.csv
+static/reduced.jpg
+# pixel.csv
 
 
