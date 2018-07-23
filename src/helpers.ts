@@ -6,6 +6,8 @@ const filePath: string = resolve(__dirname, '../');
 const csvPath: string = join(filePath, 'pixels.csv');
 const pyPath: string = join(filePath, 'scripts/updateImage.py');
 
+let pixel_cnt = 0;
+
 export function savePixel(index: number, value: number): void  {
   const timestamp: number = Date.now();
   const newLine: string = `${timestamp},${index},${value}\n`;
@@ -15,6 +17,15 @@ export function savePixel(index: number, value: number): void  {
     }
     console.log(newLine);
   });
+}
+
+export function getPixel(index: number): number{
+  const timestamp: number = Date.now();
+
+  pixel_cnt ++;
+  pixel_cnt %= 256;
+
+  return pixel_cnt;
 }
 
 export function updateImage(): void {
