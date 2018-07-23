@@ -5,12 +5,16 @@ import { savePixel, updateImage } from './helpers';
 
 const app: express.Application = express();
 const rootDir: string = resolve(__dirname, '../');
-const port: number = 8080;
+const port: number = 5678;
 
 app.use(json());
 
+app.get('/talkingdrums', (req:express.Request, res: express.Response) => {
+  res.json("hello there");
+})
+
 // api endpoints
-app.get('/image/send/:index/:value', (req: express.Request, res: express.Response) => {
+app.get('/talkingdrums/image/send/:index/:value', (req: express.Request, res: express.Response) => {
   const index: number = +req.params.index;
   const value: number = +req.params.value;
   savePixel(index, value);
