@@ -7,10 +7,13 @@ const csvPath: string = join(filePath, 'pixels.csv');
 const pyPath: string = join(filePath, 'scripts/updateImage.py');
 
 let pixel_cnt = 0;
+const width = 150;
+const height = 100;
 
 export function savePixel(index: number, value: number): void  {
   const timestamp: number = Date.now();
-  const newLine: string = `${timestamp},${index},${value}\n`;
+  const index_wrapped = index % (width * height);
+  const newLine: string = `${timestamp},${index_wrapped},${value}\n`;
   appendFile(csvPath, newLine, (error) => {
     if (error) {
       console.error(error);
