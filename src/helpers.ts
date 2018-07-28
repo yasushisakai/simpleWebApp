@@ -1,10 +1,11 @@
-import { exec } from 'child_process';
+import { exec, execSync } from 'child_process';
 import { appendFile } from 'fs';
 import { join, resolve } from 'path';
 
 const filePath: string = resolve(__dirname, '../');
 const csvPath: string = join(filePath, 'pixels.csv');
-const pyPath: string = join(filePath, 'scripts/updateImage.py');
+const pyUpdatePath: string = join(filePath, 'scripts/updateImage.py');
+const pyGetPath: string = join(filePath, 'scripts/getPixel.py');
 
 let pixel_cnt = 0;
 const width = 150;
@@ -18,21 +19,20 @@ export function savePixel(index: number, value: number): void  {
     if (error) {
       console.error(error);
     }
-    console.log(newLine);
+    console.log(`got: ${newLine}`);
   });
 }
 
 export function getPixel(index: number): number{
   const timestamp: number = Date.now();
 
-  pixel_cnt ++;
-  pixel_cnt %= 256;
+  let value = execSync(`python ${pyGetPath} ${index}`).toString();
 
-  return pixel_cnt;
+  return +value
 }
 
 export function updateImage(): void {
-  exec(`python ${pyPath}`, (error, stdout, stderr) => {
+  exec(`python ${pyUpdatePath}`, (error, stdout, stderr) => {
     if (error !== null) {
       console.log('exec error: ' + error);
     }

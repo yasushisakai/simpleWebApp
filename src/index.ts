@@ -28,9 +28,12 @@ let isPlaying: boolean = false;
 
 app.get('/talkingdrums/image/receive/', (req: express.Request, res: express.Response) => {
   if(isPlaying) {
-  res.json({cnt});
+    
+    let value = getPixel(cnt);
+    console.log(`sent: ${Date.now()},${cnt},${value}`);
+    res.json({cnt: value});
+
     cnt += 1;
-    cnt %= 256;
   } else {
     res.json("stopped");
   }

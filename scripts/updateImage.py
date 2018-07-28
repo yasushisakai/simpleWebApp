@@ -1,10 +1,11 @@
+#!/usr/bin/env python
 from PIL import Image
 import time
 
 try:
-    image = Image.open("./static/current.png")
+    image = Image.open("./static/current.gif")
 except IOError:
-    image = Image.open("./static/original.png")
+    image = Image.open("./static/original.gif")
 
 now = int(round(time.time()))
 width, height = image.size
@@ -35,6 +36,6 @@ with open('pixels.csv') as f:
 #
 
 # save tentative
-image.save('./static/current_{}.png'.format(now))
+image.save('./static/current_{}.gif'.format(now))
 # save current
-image.save('./static/current.png')
+image.save('./static/current.gif')
