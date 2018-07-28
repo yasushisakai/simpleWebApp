@@ -23,10 +23,27 @@ app.get(url_prefix + '/image/send/:index/:value', (req: express.Request, res: ex
   res.json({index, value});
 });
 
-app.get(url_prefix + '/image/receive/next', (req: express.Request, res: express.Response) =>{
-  const next_value = getPixel(0);
+let cnt: number = 0;
+let isPlaying: boolean = false;
 
-  res.json({'value': next_value});
+app.get('/talkingdrums/image/receive/', (req: express.Request, res: express.Response) => {
+  if(isPlaying) {
+  res.json({cnt});
+    cnt += 1;
+    cnt %= 256;
+  } else {
+    res.json("stopped");
+  }
+});
+
+app.get('/talkingdrums/image/start/', (req: express.Request, res: express.Response) => {
+  isPlaying = true;
+  res.json("started");
+});
+
+app.get('/talkingdrums/image/stop/', (req: express.Request, res: express.Response) => {
+  isPlaying = false;
+  res.json("stopped");
 });
 
 // serving static files
