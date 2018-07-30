@@ -64,9 +64,5 @@ typings/
 # dist folder
 dist/
 
-static/current_*.gif
-static/current.gif
-static/reduced.jpg
-# pixel.csv
-
+*.png
 

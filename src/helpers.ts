@@ -5,36 +5,43 @@ import { join, resolve } from 'path';
 const filePath: string = resolve(__dirname, '../');
 const csvPath: string = join(filePath, 'pixels.csv');
 const pyUpdatePath: string = join(filePath, 'scripts/updateImage.py');
+const imageMachinePath: string = join(filePath, 'image_machine/target/release/image_machine');
 const pyGetPath: string = join(filePath, 'scripts/getPixel.py');
-
-let pixel_cnt = 0;
-const width = 150;
-const height = 100;
 
 export function savePixel(index: number, value: number): void  {
   const timestamp: number = Date.now();
-  const index_wrapped = index % (width * height);
-  const newLine: string = `${timestamp},${index_wrapped},${value}\n`;
+  const newLine: string = `${timestamp},${index},${value}\n`;
   appendFile(csvPath, newLine, (error) => {
     if (error) {
       console.error(error);
     }
-    console.log(`got: ${newLine}`);
+    console.log(`c->s: ${newLine}`);
   });
 }
 
+export function getSize() : {width: number, height:number} {
+  let string_value = execSync(`${imageMachinePath} size`).toString();
+  let result = string_value.split(',').map((v) => +v);
+  return {width: result[0], height:result[1]}
+}
+
 export function getPixel(index: number): number{
-  const timestamp: number = Date.now();
-
-  let value = execSync(`python ${pyGetPath} ${index}`).toString();
-
+  let value = execSync(`${imageMachinePath} get ${index}`).toString();
   return +value
 }
 
 export function updateImage(): void {
-  exec(`python ${pyUpdatePath}`, (error, stdout, stderr) => {
+  exec(`${imageMachinePath} update`, (error, stdout, stderr) => {
     if (error !== null) {
       console.log('exec error: ' + error);
     }
+    if (stderr != null) {
+      console.log(`stderr: ${stderr.toString()}`);
+    } 
+    
+    if (stdout != null) {
+      console.log(`stdout: ${stdout.toString()}`);
+    }
   });
+  
 }
